@@ -25,7 +25,11 @@ def start_here():
 def say_hello():
     """Say hello and prompt for user's name."""
 
-    return """
+    options = ""
+    for compliment in AWESOMENESS:
+        options += f'<option value="{compliment}">{compliment.capitalize()}</option>'
+
+    return f"""
     <!doctype html>
     <html>
       <head>
@@ -36,7 +40,12 @@ def say_hello():
         <form action="/greet">
           What's your name? <input type="text" name="person">
           <input type="submit" value="Submit">
+          What's your compliment?
+          <select name="compliment">
+                {options}
+            </select>
         </form>
+
       </body>
     </html>
     """
@@ -48,7 +57,8 @@ def greet_person():
 
     player = request.args.get("person")
 
-    compliment = choice(AWESOMENESS)
+    # compliment = choice(AWESOMENESS)
+    compliment = request.args.get("compliment")
 
     return f"""
     <!doctype html>
