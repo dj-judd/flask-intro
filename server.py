@@ -13,6 +13,10 @@ AWESOMENESS = [
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible',
     'wonderful', 'smashing', 'lovely']
 
+DISSLIST = [
+    "a dumbo", "a lint-licker", "a dummy", "dumb...straight up"
+]
+
 
 @app.route('/')
 def start_here():
@@ -46,6 +50,10 @@ def say_hello():
             </select>
         </form>
 
+        <form action="/diss">
+          Want to know a secret? <input type="submit" value="Click here to find out">
+        </form>
+
       </body>
     </html>
     """
@@ -68,6 +76,24 @@ def greet_person():
       </head>
       <body>
         Hi, {player}! I think you're {compliment}!
+      </body>
+    </html>
+    """
+
+@app.route('/diss')
+def diss_person():
+
+  player = request.args.get("person")
+  
+  diss = choice(DISSLIST)
+  return f"""
+    <!doctype html>
+    <html>
+      <head>
+        <title>A Compliment</title>
+      </head>
+      <body>
+        Wow...you're {diss}!
       </body>
     </html>
     """
